@@ -22,7 +22,7 @@ class ShoppingList {
 
   @OneToMany(
     () => ShoppingListsProducts,
-    list_products => list_products.shopping_list,
+    shopping_list_products => shopping_list_products.shopping_list,
     {
       cascade: true,
     },
