@@ -69,7 +69,7 @@ class CreateShoppingListService {
     }
 
     const serializedProducts = products.map(product => ({
-      product_id: product.id,
+      id: product.id,
       quantity: product.quantity,
       price: productsShoppingList.filter(p => p.id === product.id)[0].price,
     }));
