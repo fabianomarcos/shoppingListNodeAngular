@@ -19,7 +19,7 @@ class FindShoppingListService {
     const shoppingList = await this.shoppingListRepository.findById(id);
 
     if (!shoppingList) {
-      throw new AppError('Ordem de compra não encontrada');
+      throw new AppError('Lista de compras não encontrada');
     }
 
     return shoppingList;

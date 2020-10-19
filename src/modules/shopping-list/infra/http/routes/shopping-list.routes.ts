@@ -1,11 +1,14 @@
+import ensureAuthenticated from '@modules/users/infra/http/middleware/ensureAuthetication';
 import { Router } from 'express';
 
 import ShoppingListController from '../controller/ShoppingListController';
 
-const ShoppingListRouter = Router();
+const shoppingListRouter = Router();
 const shoppingListController = new ShoppingListController();
 
-ShoppingListRouter.post('/', shoppingListController.create);
-ShoppingListRouter.get('/:id', shoppingListController.show);
+shoppingListRouter.use(ensureAuthenticated);
 
-export default ShoppingListRouter;
+shoppingListRouter.post('/', shoppingListController.create);
+shoppingListRouter.get('/:id', shoppingListController.show);
+
+export default shoppingListRouter;
