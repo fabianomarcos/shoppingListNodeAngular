@@ -32,6 +32,10 @@ class CreateShoppingListService {
   public async execute({ user_id, products }: IRequest): Promise<ShoppingList> {
     const user = await this.usersRepository.findById(user_id);
 
+    if (!user) {
+      throw new AppError('Cliente não encontrado');
+    }
+
     const productsShoppingList = await this.productsRepository.findAllById(
       products,
     );
@@ -69,10 +73,6 @@ class CreateShoppingListService {
       quantity: product.quantity,
       price: productsShoppingList.filter(p => p.id === product.id)[0].price,
     }));
-
-    if (!user) {
-      throw new AppError('Cliente não encontrado');
-    }
 
     const shoppingList = await this.shoppingListRepository.create({
       user,

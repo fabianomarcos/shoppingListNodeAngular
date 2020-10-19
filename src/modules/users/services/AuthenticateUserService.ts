@@ -6,8 +6,7 @@ import authConfig from '@config/auth';
 import AppError from '@shared/errors/AppError';
 import User from '../infra/typeorm/entities/User';
 import IUsersRepository from '../repositories/IUsersRepository';
-// import IHashProvider from '../providers/Hash/models/IHashProvider';
-// import BCryptHashProvider from '../providers/Hash/implementations/BCryptHashProvider';
+import IHashProvider from '../providers/Hash/models/IHashProvider';
 
 interface IRequest {
   email: string;
@@ -23,8 +22,10 @@ interface IResponse {
 class AuthenticateUserService {
   constructor(
     @inject('UsersRepository')
-    private usersRepository: IUsersRepository /*  @inject('HashProvider')
-    private hashProvider: IHashProvider, */,
+    private usersRepository: IUsersRepository,
+
+    @inject('HashProvider')
+    private hashProvider: IHashProvider,
   ) {}
 
   public async execute({ email, password }: IRequest): Promise<IResponse> {
@@ -35,7 +36,7 @@ class AuthenticateUserService {
     }
 
     const passwordMatched = password === user.password;
-    // await this.hashProvider.compareHash(password, user.password);
+    await this.hashProvider.compareHash(password, user.password);
 
     if (!passwordMatched) {
       throw new AppError('Senha ou email errado', 401);

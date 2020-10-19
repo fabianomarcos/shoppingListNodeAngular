@@ -13,7 +13,11 @@ class FakeShoppingListRepository implements IShoppingListRepository {
   }: ICreateShoppingListDTO): Promise<ShoppingList> {
     const shopping = new ShoppingList();
 
-    Object.assign(shopping, { id: uuid(), user, products });
+    Object.assign(
+      shopping,
+      { shopping_list_products: products },
+      { id: uuid(), user },
+    );
 
     this.shoppingList.push(shopping);
 
