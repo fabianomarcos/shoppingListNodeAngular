@@ -32,10 +32,6 @@ class CreateShoppingListService {
   public async execute({ user_id, products }: IRequest): Promise<ShoppingList> {
     const user = await this.usersRepository.findById(user_id);
 
-    if (!user) {
-      throw new AppError('Cliente não encontrado.');
-    }
-
     const productsShoppingList = await this.productsRepository.findAllById(
       products,
     );
@@ -69,10 +65,14 @@ class CreateShoppingListService {
     }
 
     const serializedProducts = products.map(product => ({
-      product_id: product.id,
+      id: product.id,
       quantity: product.quantity,
       price: productsShoppingList.filter(p => p.id === product.id)[0].price,
     }));
+
+    if (!user) {
+      throw new AppError('Cliente não encontrado');
+    }
 
     const shoppingList = await this.shoppingListRepository.create({
       user,
@@ -81,14 +81,14 @@ class CreateShoppingListService {
 
     const { shopping_list_products } = shoppingList;
 
-    const orderedProductsQuantity = shopping_list_products.map(product => ({
-      id: product.product_id,
-      quantity:
-        productsShoppingList.filter(p => p.id === product.product_id)[0]
-          .quantity - product.quantity,
-    }));
+    const updateQuantity = shopping_list_products.map(product => {
+      return {
+        id: product.id,
+        quantity: product.quantity,
+      };
+    });
 
-    await this.productsRepository.updateQuantity(orderedProductsQuantity);
+    await this.productsRepository.updateQuantity(updateQuantity);
 
     return shoppingList;
   }

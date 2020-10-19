@@ -19,10 +19,12 @@ export default class ShoppingListController {
   public async create(request: Request, response: Response): Promise<Response> {
     const createShoppingList = container.resolve(CreateShoppingListService);
 
-    const { id, products } = request.body;
+    const user_id = request.user.id;
+
+    const { products } = request.body;
 
     const shoppingList = await createShoppingList.execute({
-      user_id: id,
+      user_id,
       products,
     });
 

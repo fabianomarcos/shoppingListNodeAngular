@@ -3,6 +3,7 @@ import { getRepository, Repository, In } from 'typeorm';
 import IProductsRepository from '@modules/products/repositories/IProductsRepository';
 import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
 import IUpdateProductsQuantityDTO from '@modules/products/dtos/IUpdateProductsQuantityDTO';
+import AppError from '@shared/errors/AppError';
 import Product from '../entities/Products';
 
 interface IFindProducts {
@@ -48,9 +49,21 @@ class ProductsRepository implements IProductsRepository {
   public async updateQuantity(
     products: IUpdateProductsQuantityDTO[],
   ): Promise<Product[]> {
-    await this.ormRepository.save(products);
+    const findProducts = products.map(async p => {
+      const product = await this.ormRepository.findOne(p.id);
 
-    return products as Product[];
+      if (!product) {
+        throw new AppError('Produto não cadastrado');
+      }
+
+      product.quantity -= p.quantity;
+
+      await this.ormRepository.save(product);
+
+      return product;
+    });
+
+    return findProducts;
   }
 
   public async findByName(name: string): Promise<Product | undefined> {
