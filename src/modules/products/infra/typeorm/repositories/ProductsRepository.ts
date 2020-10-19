@@ -63,7 +63,7 @@ class ProductsRepository implements IProductsRepository {
       return product;
     });
 
-    return findProducts;
+    return Promise.all(findProducts);
   }
 
   public async findByName(name: string): Promise<Product | undefined> {

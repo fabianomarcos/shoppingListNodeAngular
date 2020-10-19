@@ -44,20 +44,7 @@ class FakeProductsRepository implements IProductsRepository {
   public async updateQuantity(
     products: IUpdateProductsQuantityDTO[],
   ): Promise<Product[]> {
-    const productIds = products.map(product => product.id);
-
-    const findIndexProducts = this.products.filter(product => {
-      return productIds.findIndex(id => product.id === id);
-    });
-
-    let indexProduct = 0;
-
-    findIndexProducts.forEach(index => {
-      this.products[Number(index)].quantity = products[indexProduct].quantity;
-      indexProduct += 1;
-    });
-
-    return this.products;
+    return products as Product[];
   }
 
   public async findByName(name: string): Promise<Product | undefined> {
