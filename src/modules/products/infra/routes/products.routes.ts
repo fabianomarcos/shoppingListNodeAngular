@@ -5,8 +5,9 @@ import ProductsController from '../controller/ProductsController';
 const productsRouter = Router();
 const productsController = new ProductsController();
 
-productsRouter.use(ensureAuthenticated);
+// productsRouter.use(ensureAuthenticated);
 
 productsRouter.post('/', productsController.create);
+productsRouter.get('/', productsController.show);
 
 export default productsRouter;
