@@ -1,6 +1,6 @@
 {
   "env": {
-    "es2020": true,
+    "es6": true,
     "node": true,
     "jest": true
   },
@@ -28,6 +28,8 @@
     "prettier/prettier": "error",
     "no-useless-constructor": "off",
     "class-methods-use-this": "off",
+    "no-return-assign": "off",
+    "no-param-reassign": "off",
     "@typescript-eslint/camelcase": "off",
     "@typescript-eslint/no-unused-vars": ["error", {
       "argsIgnorePattern": "_"

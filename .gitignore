@@ -3,7 +3,7 @@
 node_modules/
 build/
 temp/
-acrescentar_ormconfig.json
+ormconfig.json
 tmp/*
 !tmp/.gitkeep
 
