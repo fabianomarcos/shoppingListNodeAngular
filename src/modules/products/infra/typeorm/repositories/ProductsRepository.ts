@@ -66,6 +66,22 @@ class ProductsRepository implements IProductsRepository {
     return Promise.all(findProducts);
   }
 
+  public async update(product: Product): Promise<Product> {
+    this.ormRepository.save(product);
+
+    return product;
+  }
+
+  public async delete(id: string): Promise<void> {
+    const product = await this.findById(id);
+
+    if (!product) {
+      throw new AppError('Produto não encontrado');
+    }
+
+    this.ormRepository.remove(product);
+  }
+
   public async findByName(name: string): Promise<Product | undefined> {
     return this.ormRepository.findOne({
       where: {
@@ -76,6 +92,16 @@ class ProductsRepository implements IProductsRepository {
 
   public async findById(id: string): Promise<Product | undefined> {
     return this.ormRepository.findOne(id);
+  }
+
+  public async findAll(): Promise<Product[]> {
+    const products = await this.ormRepository.find({
+      order: {
+        name: 'ASC',
+      },
+    });
+
+    return products;
   }
 }
 

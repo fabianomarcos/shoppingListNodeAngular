@@ -6,9 +6,10 @@ import ShoppingListController from '../controller/ShoppingListController';
 const shoppingListRouter = Router();
 const shoppingListController = new ShoppingListController();
 
-shoppingListRouter.use(ensureAuthenticated);
+// shoppingListRouter.use(ensureAuthenticated);
 
 shoppingListRouter.post('/', shoppingListController.create);
+shoppingListRouter.get('/', shoppingListController.showAll);
 shoppingListRouter.get('/:id', shoppingListController.show);
 
 export default shoppingListRouter;

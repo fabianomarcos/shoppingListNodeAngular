@@ -1,6 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
+import IProductsRepository from '@modules/products/repositories/IProductsRepository';
 import IShoppingListRepository from '../repositories/IShoppingListRepository';
 import ShoppingList from '../infra/typeorm/entities/ShoppingList';
 
@@ -21,6 +22,12 @@ class FindShoppingListService {
     if (!shoppingList) {
       throw new AppError('Lista de compras não encontrada');
     }
+
+    return shoppingList;
+  }
+
+  public async showAll(): Promise<ShoppingList[]> {
+    const shoppingList = await this.shoppingListRepository.findAll();
 
     return shoppingList;
   }

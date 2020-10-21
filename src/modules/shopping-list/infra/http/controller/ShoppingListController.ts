@@ -19,7 +19,7 @@ export default class ShoppingListController {
   public async create(request: Request, response: Response): Promise<Response> {
     const createShoppingList = container.resolve(CreateShoppingListService);
 
-    const user_id = request.user.id;
+    const user_id = '3d38d9c2-b36d-45c9-a5da-1239dc78e944'; // request.user.id;
 
     const { products } = request.body;
 
@@ -29,5 +29,16 @@ export default class ShoppingListController {
     });
 
     return response.json(shoppingList);
+  }
+
+  public async showAll(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const findShoppingList = container.resolve(FindShoppingListService);
+
+    const shopping = await findShoppingList.showAll();
+
+    return response.json(shopping);
   }
 }
