@@ -9,5 +9,7 @@ const productsController = new ProductsController();
 
 productsRouter.post('/', productsController.create);
 productsRouter.get('/', productsController.show);
+productsRouter.get('/:id', productsController.update);
+productsRouter.delete('/:id', productsController.delete);
 
 export default productsRouter;

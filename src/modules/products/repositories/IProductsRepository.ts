@@ -13,4 +13,6 @@ export default interface IProductsRepository {
   findAll(): Promise<Product[]>;
   findById(id: string): Promise<Product | undefined>;
   updateQuantity(products: IUpdateProductsQuantityDTO[]): Promise<Product[]>;
+  update(product: Product): Promise<Product>;
+  delete(id: string): Promise<void>;
 }

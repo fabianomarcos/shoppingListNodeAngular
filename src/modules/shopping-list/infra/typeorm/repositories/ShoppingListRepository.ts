@@ -31,6 +31,17 @@ class ShoppingListRepository implements IShoppingListRepository {
 
     return shoppingList;
   }
+
+  public async findAll(): Promise<ShoppingList[]> {
+    const shoppingList = this.ormRepository.findOne({
+      order: {
+        created_at: 'ASC',
+      },
+      relations: ['shopping_list_products', 'user'],
+    });
+
+    return shoppingList;
+  }
 }
 
 export default ShoppingListRepository;
