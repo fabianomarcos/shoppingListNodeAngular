@@ -6,7 +6,8 @@ import {
 } from 'typeorm';
 
 export default class CreateForeingKeysShoppingUsersAndProducts1602968611123
-  implements MigrationInterface {
+  implements MigrationInterface
+{
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.addColumn(
       'shopping_list',

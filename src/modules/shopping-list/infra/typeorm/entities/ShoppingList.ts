@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import User from '@modules/users/infra/typeorm/entities/User';
 import {
   Entity,

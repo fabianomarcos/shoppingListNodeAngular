@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import ShoppingListsProducts from '@modules/shopping-list/infra/typeorm/entities/ShoppingListProducts';
 import {
   Entity,
