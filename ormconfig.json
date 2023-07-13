@@ -4,8 +4,8 @@
   "host": "localhost",
   "port": 5432,
   "username": "postgres",
-  "password": "docker",
-  "database": "shopping_list",
+  "password": "docker_shoppingList",
+  "database": "shopping_list_postgres",
   "entities": [
     "./src/modules/**/infra/typeorm/entities/*.ts"
   ],
