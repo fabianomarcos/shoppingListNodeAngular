@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import CreateShoppingListService from '@modules/shopping-list/services/CreateShoppingListService';
 import FindShoppingListService from '@modules/shopping-list/services/FindShoppingListService';
 import { Request, Response } from 'express';

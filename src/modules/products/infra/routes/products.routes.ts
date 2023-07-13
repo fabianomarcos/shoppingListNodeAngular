@@ -1,4 +1,3 @@
-import ensureAuthenticated from '@modules/users/infra/http/middleware/ensureAuthetication';
 import { Router } from 'express';
 import ProductsController from '../controller/ProductsController';
 
@@ -9,6 +8,7 @@ const productsController = new ProductsController();
 
 productsRouter.post('/', productsController.create);
 productsRouter.get('/', productsController.show);
+productsRouter.get('/:id', productsController.getById);
 productsRouter.put('/:id', productsController.update);
 productsRouter.delete('/:id', productsController.delete);
 

@@ -4,6 +4,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import CreateProductService from '@modules/products/services/CreateProductService';
 import FindProductsService from '@modules/products/services/FindProductsService';
+import FindProductByIdService from '@modules/products/services/FindByIdProductsService';
 import UpdateProductsService from '@modules/products/services/UpdateProductsService';
 import DeleteProductsService from '@modules/products/services/DeleteProductsService';
 
@@ -28,6 +29,19 @@ export default class ProductsController {
     const products = await findProducts.execute();
 
     return response.json(products);
+  }
+
+  public async getById(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const { id } = request.params;
+
+    const findProduct = container.resolve(FindProductByIdService);
+
+    const product = await findProduct.execute(id);
+
+    return response.json(product);
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
