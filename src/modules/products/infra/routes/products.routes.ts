@@ -6,7 +6,7 @@ const productsController = new ProductsController();
 
 // productsRouter.use(ensureAuthenticated);
 
-productsRouter.post('/', productsController.create);
+productsRouter.post('/register', productsController.create);
 productsRouter.get('/', productsController.show);
 productsRouter.get('/:id', productsController.getById);
 productsRouter.put('/:id', productsController.update);
