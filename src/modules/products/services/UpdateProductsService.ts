@@ -1,3 +1,4 @@
+import AppError from '@shared/errors/AppError';
 import { inject, injectable } from 'tsyringe';
 
 import IProductsRepository from '../repositories/IProductsRepository';
@@ -10,8 +11,15 @@ class UpdateProductsService {
     private productsRepository: IProductsRepository,
   ) {}
 
-  public async execute(product: Product): Promise<Product> {
-    const updateProduct = await this.productsRepository.update(product);
+  public async execute(product: Product): Promise<Product | undefined> {
+    const productFinding = await this.productsRepository.findById(product.id);
+
+    if (!productFinding) throw new AppError('Produto inexistente.');
+
+    const updateProduct = await this.productsRepository.update({
+      ...productFinding,
+      ...product,
+    });
 
     return updateProduct;
   }

@@ -67,7 +67,7 @@ class ProductsRepository implements IProductsRepository {
   }
 
   public async update(product: Product): Promise<Product> {
-    this.ormRepository.save(product);
+    this.ormRepository.update(product.id, { ...product });
 
     return product;
   }
