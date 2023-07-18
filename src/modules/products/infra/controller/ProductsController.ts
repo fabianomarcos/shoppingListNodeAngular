@@ -14,9 +14,9 @@ export default class ProductsController {
   public async create(request: Request, response: Response): Promise<Response> {
     const { name, price, quantity } = request.body;
 
-    const createProduct = container.resolve(CreateProductService);
+    const createProductService = container.resolve(CreateProductService);
 
-    const product = await createProduct.execute({
+    const product = await createProductService.execute({
       name,
       price,
       quantity,
@@ -25,7 +25,7 @@ export default class ProductsController {
     return response.json(product);
   }
 
-  public async show(request: Request, response: Response): Promise<Response> {
+  public async show(_: Request, response: Response): Promise<Response> {
     const findProducts = container.resolve(FindProductsService);
 
     const products = await findProducts.execute();
@@ -45,20 +45,18 @@ export default class ProductsController {
 
     if (!product) throw new AppError('Produto não encontrado');
 
-    return response.json({ product });
+    return response.json(product);
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
     const updateProduct = container.resolve(UpdateProductsService);
 
     const product = request.body as Product;
-    const { id } = request.params;
+    const total = product.quantity * product.price;
 
     const updatedProduct = await updateProduct.execute({
       ...product,
-      id,
-      price: product.price * 100,
-      total: product.quantity * product.price * 100,
+      total,
     });
 
     return response.json({ product: updatedProduct });
