@@ -4,6 +4,7 @@ import IProductsRepository from '@modules/products/repositories/IProductsReposit
 import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
 import IUpdateProductsQuantityDTO from '@modules/products/dtos/IUpdateProductsQuantityDTO';
 import Product from '@modules/products/infra/typeorm/entities/Products';
+import AppError from '@shared/errors/AppError';
 
 interface IFindProducts {
   id: string;
@@ -11,6 +12,24 @@ interface IFindProducts {
 
 class FakeProductsRepository implements IProductsRepository {
   private products: Product[] = [];
+
+  public async findAll(): Promise<Product[]> {
+    return this.products;
+  }
+
+  async update(product: Product): Promise<Product> {
+    const productFindIndex = this.products.findIndex(p => p.id === product.id);
+    if (productFindIndex === -1) throw new AppError('Produto não encontrado');
+
+    this.products[productFindIndex] = product;
+    return product;
+  }
+
+  async delete(id: string) {
+    const product = this.products.find(p => p.id === id);
+    if (!product) throw new AppError('Produto não encontrado');
+    this.products.filter(p => p.id !== id);
+  }
 
   public async create({
     name,
@@ -26,7 +45,7 @@ class FakeProductsRepository implements IProductsRepository {
       total: quantity * price,
     });
 
-    await this.products.push(product);
+    this.products.push(product);
 
     return product;
   }
