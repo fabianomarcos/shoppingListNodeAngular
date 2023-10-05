@@ -1,7 +1,15 @@
 {
+  "vercel": 2,
+  "builds": [
+    {
+      "src": "./index.ts",
+      "use": "@vercel/node"
+    }
+  ],
   "routes": [
+    { "src": "/(.*)", "dest":  "/" },
     { "src": "modules/*", "dest":  "./src/modules/*" },
-    { "src": "config/*", "dest":  ".src/config/*" },
-    { "src": "shared/*", "dest":  ".src/shared/*" }
+    { "src": "config/*", "dest":  "./src/config/*" },
+    { "src": "shared/*", "dest":  "./src/shared/*" }
   ]
 }
