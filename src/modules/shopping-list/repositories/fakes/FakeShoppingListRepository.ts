@@ -5,6 +5,10 @@ import ShoppingList from '@modules/shopping-list/infra/typeorm/entities/Shopping
 import IShoppingListRepository from '@modules/shopping-list/repositories/IShoppingListRepository';
 
 class FakeShoppingListRepository implements IShoppingListRepository {
+  findAll(): Promise<ShoppingList[]> {
+    throw new Error('Method not implemented.');
+  }
+
   private shoppingList: ShoppingList[] = [];
 
   public async create({

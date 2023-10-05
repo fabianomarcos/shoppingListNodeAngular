@@ -33,7 +33,7 @@ class ShoppingListRepository implements IShoppingListRepository {
   }
 
   public async findAll(): Promise<ShoppingList[]> {
-    const shoppingList = this.ormRepository.findOne({
+    const shoppingList = this.ormRepository.find({
       order: {
         created_at: 'ASC',
       },
