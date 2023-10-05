@@ -1,0 +1,7 @@
+{
+  "routes": [
+    { "src": "modules/*", "dest":  "./src/modules/*" },
+    { "src": "config/*", "dest":  ".src/config/*" },
+    { "src": "shared/*", "dest":  ".src/shared/*" }
+  ]
+}
